@@ -77,4 +77,8 @@ class Organizer {
     }
 
     public String toString() { return id + " - " + name + " (" + department + ")"; }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4d8ae5e3c684ed4a0c79b3010da98dd76f4932d0
