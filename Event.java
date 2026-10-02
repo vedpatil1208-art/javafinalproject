@@ -2,16 +2,13 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Event {
-    // Basic event details
+
+    // Event details
     private int id, capacity, count;
     private String name, category;
     private LocalDate date;
     private Organizer organizer;
-
-    // Stores participants according to event capacity
     private Participant[] participants;
-
-    // Stores the event schedule
     private LinkedList<String> schedule = new LinkedList<>();
 
     // Constructor: creates an Event object
@@ -56,11 +53,10 @@ public class Event {
         participants[count++] = p;
     }
 
-    // Removes a participant and shifts remaining participants
+    // Removes a participant from the event
     public void removeParticipant(int participantId) {
         for (int i = 0; i < count; i++) {
             if (participants[i].getId() == participantId) {
-
                 for (int j = i; j < count - 1; j++)
                     participants[j] = participants[j + 1];
 
@@ -70,7 +66,7 @@ public class Event {
         }
     }
 
-    // Adds a time and activity to the schedule
+    // Adds an activity to the event schedule
     public void addSchedule(String time, String activity) {
         if (time.isEmpty() || activity.isEmpty())
             throw new IllegalArgumentException("Time and activity cannot be empty");
@@ -115,5 +111,13 @@ class Organizer {
         this.id = id;
         this.name = name;
         this.department = department;
+    }
+
+    // Displays organizer information
+    @Override
+    public String toString() {
+        return "Organizer ID: " + id +
+                "\nName: " + name +
+                "\nDepartment: " + department;
     }
 }
