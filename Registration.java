@@ -1,71 +1,28 @@
 import java.time.LocalDate;
 
 public class Registration {
-
-    private int registrationId;
+    private int id;
     private Participant participant;
     private Event event;
-    private LocalDate registrationDate;
+    private LocalDate date = LocalDate.now();
     private boolean attended;
 
-    // Constructor
-    public Registration(int registrationId,
-                        Participant participant,
-                        Event event) {
-
-        if (registrationId <= 0)
-            throw new IllegalArgumentException("Invalid Registration ID");
-
-        if (participant == null)
-            throw new IllegalArgumentException("Participant required");
-
-        if (event == null)
-            throw new IllegalArgumentException("Event required");
-
-        this.registrationId = registrationId;
+    public Registration(int id, Participant participant, Event event) {
+        if (id <= 0 || participant == null || event == null) throw new IllegalArgumentException("Invalid registration");
+        this.id = id;
         this.participant = participant;
         this.event = event;
-        this.registrationDate = LocalDate.now();
-        this.attended = false;
     }
 
-    public int getRegistrationId() {
-        return registrationId;
-    }
+    public int getId() { return id; }
+    public Participant getParticipant() { return participant; }
+    public Event getEvent() { return event; }
+    public boolean isAttended() { return attended; }
+    public void markAttendance() { attended = true; }
+    public void cancelRegistration() { event.removeParticipant(participant.getId()); }
 
-    public Participant getParticipant() {
-        return participant;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public boolean isAttended() {
-        return attended;
-    }
-
-    // Attendance
-    public void markAttendance() {
-        attended = true;
-    }
-
-    public void cancelRegistration() {
-        event.removeParticipant(participant.getParticipantId());
-    }
-
-    @Override
     public String toString() {
-
-        return "Registration ID: " + registrationId +
-                "\nParticipant: " + participant.getName() +
-                "\nEvent: " + event.getEventName() +
-                "\nDate: " + registrationDate +
-                "\nAttendance: " +
-                (attended ? "Present" : "Absent");
+        return "Registration ID: " + id + "\nParticipant: " + participant.getName() + "\nEvent: " + event.getName()
+                + "\nDate: " + date + "\nAttendance: " + (attended ? "Present" : "Absent");
     }
 }
